@@ -13,8 +13,8 @@ ON CV.iso_code = CD.iso_code
 
 ---Total cases per continent using CTE.
 
-WITH Cases AS (Location, Continent, TotalCases)
-	(
+WITH Cases AS ( ---Location, Continent, TotalCases
+	
     SELECT DISTINCT Location, continent, CAST(Total_cases AS BIGINT) AS TotalCases 
     FROM Portfolio..CovidDeaths 
     WHERE continent IS NOT NULL 
