@@ -1,5 +1,6 @@
--- COVID-19 DATA EXPLORATION 
---Skills used; JOINS, CTEs, Aggregate Finctions, Converting Data Types, 
+/* COVID-19 DATA EXPLORATION 
+Skills used; JOINS, CTEs, Aggregate Finctions, Converting Data Types
+*/
   
 
 --Raw Data 
@@ -11,7 +12,7 @@ ON CV.iso_code = CD.iso_code
 
  
 
----Total cases per continent using CTE.
+---Total cases per continent.
 
 WITH Cases AS ( ---Location, Continent, TotalCases
 	
@@ -27,8 +28,9 @@ GROUP BY continent;
 
   
 
---Case every year in every country 
---I excluded the 'World' as its showing up in location.
+/* Case every year in every country 
+I excluded the 'World' as its showing up in location
+*/ 
 
  SELECT Location, SUM(CAST(Total_cases AS BIGINT)) AS TotalCases,
  YEAR(TRY_CAST(Date AS Date)) AS Years
@@ -39,8 +41,9 @@ YEAR(TRY_CAST(Date AS Date));
 
 
 
---Percentage of population in the Philippines that is vaccinated.
---I'm still looking for a way to show the percentage as a whole numbers.
+/* Percentage of population in the Philippines that is vaccinated.
+I'm still looking for a way to show the percentage as a whole numbers.
+*/
 
 WITH Vaccination AS ( ---Location, population, vaccinated
 
@@ -61,7 +64,7 @@ FROM
 
 
 
-	--Total Covid-19 deaths worldwide
+--Total Covid-19 deaths worldwide
 
 SELECT SUM(CAST(Total_deaths AS BIGINT)) AS totalDeaths
 FROM Portfolio..CovidDeaths
@@ -77,7 +80,7 @@ GROUP BY CD.Location
 HAVING SUM(CAST(CV.Total_vaccinations AS BIGINT)) > 0;
 
 
---Percentage of poopulation vaccinated including the max and avg of deaths in every country.
+--Percentage of population vaccinated including the max and avg of deaths in every country.
 
 WITH Percentage AS (
 SELECT DISTINCT CD.Location, CV.Population, SUM(CAST(CV.Total_vaccinations AS BIGINT)) AS TotalVaccinated, 
